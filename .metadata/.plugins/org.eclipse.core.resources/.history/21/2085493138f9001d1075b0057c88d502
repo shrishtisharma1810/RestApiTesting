@@ -1,0 +1,151 @@
+package com.qa.rest.tests;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.testng.annotations.Test;
+
+public class MaverickPostApitest_BDD {
+	public String requestBody = "{\n" +
+			" \"limit\" : 10, \n " +
+			" \"offset\" : 0, \n " +
+			" \"query\" : \"*\", \n" +
+			" \"filters\" : \"[]\", \n" +
+			"}";
+            
+	@Test
+	public void test_POST_Analysis_Load()
+	{
+		String token ="eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJodHRwczovL21hdmVyaWNrLmRldiIsImlhdCI6MTY4NDgyMTYyNiwianRpIjoiMSIsImV4cCI6MTY4NDgyNTIyNiwic3ViIjoiYjIxMGIyUnJZWEk9In0.gYM83al7QNtRzlzue9bXhWwiXGf3i1Pcu6hqy27gKi1DMySKXfkJAMVWDN9N1-OMCfRGSwo9986g-OFF8rXHbuJY9a3tDLv7Uai7BgD5NGBT4grbZ-2xKIOk3eN-nrIF4ljz_0WT8mmX6Ogblz-sVRFHL8EPMep_aQslFKM5Jcl5cjDRDDxz_NvMOVg6vZ2rI9WcfIM48GgwZGjbjggDTOs75TEFSbORLRdny0S8I3YaHyzK8A2VjoRrYO9dIa0yo7icx4rB18Y8N6IcqaBb30yjArXnVAgIAOItC7i0Lzl-oz6d5DcA0hm-FQCtf9IM-LpivW8UUXUiTacgPqkkG-5jJQgG2eTylIj8iFnlGCnFXj5tb1gbFEd87OBXLWL2mEHjhBGrqLn7N_ZrLeouNt3f2zBvASKqdtR6ZM7d1O_O570r1bB5gwZLJ1gZx5G3rES0CAaQH1pO1cvaPZDRsWaZiXXFSQRW4Xxdkd3AhtuERITn-G3yt9Obb0DtkSMvyfuj4oAH_fb8v13wGG1xKjyPppa-nJyzPzPn3ZsMK0rGkk_RzFYXVAzAJy_vOz57dmsnqb4C5evg709wi07H1exk4VMUKnZJ_iKOZZvEEZTUqG1IsP4oDd_ZFdLZJpkoTbIX7MHlR1mrBp15qY8AcuecIrtWE4kDPg0eAVW7AJk";
+		given().
+			body(requestBody).
+			and().
+			header("Authorization", "Bearer " + token).
+		when().
+			get("https://api.dev.maverick.dev/analysis/v1.0/load").
+		then().
+		/*
+		 "status": "SUCCESS",
+    "result": {
+        "offset": 0,
+        "limit": 10,
+        "total": 57221,
+        "hits": [
+            {
+                "nsn": 1005000499324,
+                "amsc": "L",
+                "description": "VERNIER ASSY",
+                "firstAwardDate": "1995-04-01",
+                "lastAwardDate": "2019-04-01",
+                "contractNumber": "SP075097M2565",
+                "lastUnitPrice": 20.99,
+                "lastAwardQuantity": 334,
+                "lastAwardPrice": 7010.66,
+                "totalContracts": 82,
+                "totalQuantity": 3433,
+                "cage": "0GH66",
+                "company": "HUELSMAN JACK",
+                "totalWins": 3,
+                "recentWins": 0,
+                "winsPercentage": "3.66%",
+                "dla2yrDemand": 148,
+                "dlaOffice": "Defense Supply Center - Land and Maritime",
+                "potentialSales": 3106.52
+            },
+            {
+                "nsn": 1005000499324,
+                "amsc": "L",
+                "description": "VERNIER ASSY",
+                "firstAwardDate": "1995-04-01",
+                "lastAwardDate": "2019-04-01",
+                "contractNumber": "SP075098M6261",
+                "lastUnitPrice": 20.99,
+                "lastAwardQuantity": 334,
+                "lastAwardPrice": 7010.66,
+                "totalContracts": 82,
+                "totalQuantity": 3433,
+                "cage": "2N210",
+                "company": "INTERNATIONAL LOGISTICS GROUP LTD.",
+                "totalWins": 14,
+                "recentWins": 0,
+                "winsPercentage": "17.07%",
+                "dla2yrDemand": 148,
+                "dlaOffice": "Defense Supply Center - Land and Maritime",
+                "potentialSales": 3106.52
+            },
+            {
+                "nsn": 1005000499324,
+                "amsc": "L",
+                "description": "VERNIER ASSY",
+                "firstAwardDate": "1995-04-01",
+                "lastAwardDate": "2019-04-01",
+                "contractNumber": "SPE7L415V1157",
+                "lastUnitPrice": 20.99,
+                "lastAwardQuantity": 334,
+                "lastAwardPrice": 7010.66,
+                "totalContracts": 82,
+                "totalQuantity": 3433,
+                "cage": "34623",
+                "company": "AM GENERAL LLC",
+                "totalWins": 46,
+                "recentWins": 0,
+                "winsPercentage": "56.1%",
+                "dla2yrDemand": 148,
+                "dlaOffice": "DLA",
+                "potentialSales": 3106.52
+            },
+            {
+                "nsn": 1005000499324,
+                "amsc": "L",
+                "description": "VERNIER ASSY",
+                "firstAwardDate": "1995-04-01",
+                "lastAwardDate": "2019-04-01",
+                "contractNumber": "SPE7L419P1360",
+                "lastUnitPrice": 20.99,
+                "lastAwardQuantity": 334,
+                "lastAwardPrice": 7010.66,
+                "totalContracts": 82,
+                "totalQuantity": 3433,
+                "cage": "3NNX8",
+                "company": "BRIGHTON CROMWELL, LLC",
+                "totalWins": 4,
+                "recentWins": 0,
+                "winsPercentage": "4.88%",
+                "dla2yrDemand": 148,
+                "dlaOffice": "DLA",
+                "potentialSales": 3106.52
+            },
+		 */
+		 
+			assertThat().
+				statusCode(200).
+				and(). 
+				body("status",equalTo("SUCCESS"));
+				
+		/*
+				and(). 
+				body("country_code", equalTo("US")). 
+				and(). 
+				body("data[0].clouds", equalTo(11)).
+				and(). 
+				body("data[3].weather.code", equalTo(500)).
+				/*
+				and(). 
+				body("lon", equalTo("-78.5")).
+				and(). 
+				body("state_code", equalTo("VA")).
+				and(). 
+				body("timezone", equalTo("America/New_York")).
+				and(). 
+				
+				header("access-control-allow-methods", equalTo("GET, OPTIONS, POST")).
+				and(). 
+				header("Content-Type", equalTo("application/json; charset=utf-8")).
+				and(). 
+				header("Server", equalTo("RapidAPI-1.2.8"));
+				*/
+		
+	}
+
+
+}

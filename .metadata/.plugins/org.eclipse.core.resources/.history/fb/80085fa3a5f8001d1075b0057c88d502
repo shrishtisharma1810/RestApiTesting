@@ -1,0 +1,29 @@
+package com.qa.rest.tests;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+
+import org.testng.annotations.Test;
+
+public class MaverickGetApiTest {
+	@Test
+	public void Test_User_Profile()
+	{
+		given().
+		when().
+			get("http://ergast.com/api/f1/2020/circuits.json").
+		then().
+			assertThat().
+				statusCode(200).
+				and(). 
+				body("MRData.limit",equalTo("30")).
+				and().
+				body("MRData.CircuitTable.Circuits.circuitId", hasSize(14)).
+				and(). 
+				header("Content-Length", equalTo("3184")).
+				and(). 
+				header("Content-Type", equalTo("application/json; charset=utf-8"));
+	}
+
+}

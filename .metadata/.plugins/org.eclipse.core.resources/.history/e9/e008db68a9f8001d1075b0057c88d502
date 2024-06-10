@@ -1,0 +1,36 @@
+package com.qa.rest.tests;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+
+import org.testng.annotations.Test;
+
+public class MaverickGetApiTest_BDD {
+	@Test
+	public void Test_User_Profile()
+	{
+		String token ="eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJodHRwczovL21hdmVyaWNrLmRldiIsImlhdCI6MTY4NDc1NDc4NywianRpIjoiMSIsImV4cCI6MTY4NDc1ODM4Nywic3ViIjoiYjIxMGIyUnJZWEk9In0.IPf3keMGpjzIVe-YBA1uPuHZDh7eOIbMnEtkuF8FZRN4j8iFWJAy1QwRIq2YAjmd30S0wKRT8WGw5FTZ4LpSwAwztXHxNsqbPAeNQdhrpI_tN9pvG0TvfWKgPe9VBAXR71DkmJRLn7QCsZr2h_HLDhFHvpMtFs3k7x7nXNkKlFPEpv9qzkmkhfrno32xF_oSmclyoHyp5AL07i6nJg2QjPwFD85D1ouybQOOTQTHbE9S5npI2oDPG-mefmfuIyf_IrkP0OGB6Rqx1jsaNFF4etyPqX8UQaHAFhsuM_uQXKjTnxf6GOj023Xp8kP_ZGmYv0x4hsc-5LkOPXPk0UNdTuhe6m579YRM2K6qZJln6wmaXvJWrmPCqvl4UpuEXK1xgJTpciCjd175yu0LD7xKK1NSr3R6Ss9koTQ3SbhMFOzCJ-_46yOERoQKdfIx_9IOU2_fBRAloUixXWUU0i0uWxDAokxX-LRjGVV47ASCO_5WBG7vQ3qoZmAR-_jjbH3FECaqGcZJtxlj1GCHawJH1pn-cmJ2lkkv30CTvAatSRcca9J7hHOeGCcl8biMjkPRs0Ll7xlnbb_jHNrEPR3hNzaRTUu0tA-joPB04bP8NmMcl3T77NJddHEy_dCgjEdQGJbofFLjc-YYadX5ml6eeudJctlGBGFYn-8X_PduYkw";
+		given().
+			auth().basic("omtodkar", "omkar1234").
+			header("Authorization", "Bearer " + token).
+		when().
+			get("https://api.dev.maverick.dev/user/v1.0/profile").
+		then().
+			assertThat().
+				statusCode(200).
+				and(). 
+				body("status",equalTo("SUCCESS")).
+				and().
+				body("result.id", equalTo("1")).
+				and().
+				body("result.firstName", equalTo("Omkar")).
+				and().
+				body("result.lastName", equalTo("Todkar")).
+				and(). 
+				header("Content-Length", equalTo("144")).
+				and(). 
+				header("Content-Type", equalTo("application/json"));
+	}
+
+}
